@@ -1,6 +1,7 @@
 import { Component } from 'react';
 
 import AppInfo from '../app-info/app-info';
+import SearchPanel from '../search-panel/search-panel';
 
 import './app.css';
 
@@ -24,6 +25,10 @@ class App extends Component {
         return (
             <div className='app'>
                 <AppInfo employees={employees} increased={increased}/>
+
+                <div className="search-panel">
+                    <SearchPanel />
+                </div>
             </div>
         );
     }
