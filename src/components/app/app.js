@@ -2,6 +2,7 @@ import { Component } from 'react';
 
 import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
+import AppFilter from '../app-filter/app-filter';
 
 import './app.css';
 
@@ -14,12 +15,14 @@ class App extends Component {
                 {name: 'Alex M.', salary: 3000},
                 {name: 'Carl W.', salary: 5000},
                 {name: 'Duke S.', salary: 2500},
-            ]
+            ],
+            filter: 'all'
         }
     }
     
     render() {
         const employees = this.state.data.length;
+        const {filter} = this.state;
         const increased = this.state.data.filter(item => item.increase).length;
 
         return (
@@ -28,6 +31,7 @@ class App extends Component {
 
                 <div className="search-panel">
                     <SearchPanel />
+                    <AppFilter filter={filter} />
                 </div>
             </div>
         );
