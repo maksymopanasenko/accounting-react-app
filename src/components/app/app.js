@@ -4,6 +4,7 @@ import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
 import AppFilter from '../app-filter/app-filter';
 import EmployeesList from '../employees-list/employees-list';
+import EmployeesAddForm from '../employees-add-form/employees-add-form';
 
 import './app.css';
 
@@ -33,11 +34,14 @@ class App extends Component {
                 <div className="search-panel">
                     <SearchPanel />
                     <AppFilter filter={filter} />
-                    <EmployeesList
+                </div>
+                
+                <EmployeesList
                         data={this.state.data}
                         onDelete={this.deleteItem}
                         onToggleProp={this.onToggleProp}/>
-                </div>
+
+                <EmployeesAddForm data={this.state.data}/>
             </div>
         );
     }
