@@ -13,13 +13,33 @@ class App extends Component {
         super(props);
         this.state = {
             data: [
-                {name: 'John C.', salary: 800},
-                {name: 'Alex M.', salary: 3000},
-                {name: 'Carl W.', salary: 5000},
-                {name: 'Duke S.', salary: 2500},
+                {name: 'John C.', salary: 800, id: 1},
+                {name: 'Alex M.', salary: 3000, id: 2},
+                {name: 'Carl W.', salary: 5000, id: 3},
+                {name: 'Duke S.', salary: 2500, id: 4},
             ],
             filter: 'all'
-        }
+        };
+        this.maxId = 5;
+    }
+
+    deleteItem = (id) => {
+        this.setState(({data}) => {
+            return {
+                data: data.filter(item => item.id !== id)
+            }
+        });
+    }
+
+    onToggleProp = (id, prop) => {
+        this.setState(({data}) => ({
+            data: data.map(item => {
+                if (item.id === id) {
+                    return {...item, [prop]: !item[prop]}
+                }
+                return item;
+            })
+        }));
     }
     
     render() {
