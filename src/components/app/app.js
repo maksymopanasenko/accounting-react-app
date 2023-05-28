@@ -13,10 +13,9 @@ class App extends Component {
         super(props);
         this.state = {
             data: [
-                {name: 'John C.', salary: 800, id: 1},
-                {name: 'Alex M.', salary: 3000, id: 2},
-                {name: 'Carl W.', salary: 5000, id: 3},
-                {name: 'Duke S.', salary: 2500, id: 4},
+                {name: 'Alex M.', salary: 3000, increase: false, rise: false, id: 2},
+                {name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3},
+                {name: 'Duke S.', salary: 2500, increase: false, rise: false, id: 4}
             ],
             filter: 'all'
         };
@@ -42,9 +41,13 @@ class App extends Component {
         }));
     }
     
+    onFilterSelect = (filter) => {
+        this.setState({filter});
+    }
+    
     render() {
         const employees = this.state.data.length;
-        const {filter} = this.state;
+        const {data, filter} = this.state;
         const increased = this.state.data.filter(item => item.increase).length;
 
         return (
@@ -53,15 +56,15 @@ class App extends Component {
 
                 <div className="search-panel">
                     <SearchPanel />
-                    <AppFilter filter={filter} />
+                    <AppFilter filter={filter} onFilterSelect={this.onFilterSelect}/>
                 </div>
                 
                 <EmployeesList
-                        data={this.state.data}
+                        data={data}
                         onDelete={this.deleteItem}
                         onToggleProp={this.onToggleProp}/>
 
-                <EmployeesAddForm data={this.state.data}/>
+                <EmployeesAddForm data={data}/>
             </div>
         );
     }
