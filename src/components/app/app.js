@@ -34,11 +34,22 @@ class App extends Component {
         this.setState(({data}) => ({
             data: data.map(item => {
                 if (item.id === id) {
-                    return {...item, [prop]: !item[prop]}
+                    return {...item, [prop]: !item[prop]};
                 }
                 return item;
             })
         }));
+    }
+    
+    filterPost = (items, filter) => {
+        switch (filter) {
+            case 'rise': 
+                return items.filter(item => item.rise);
+            case 'moreThen1000':
+                return items.filter(item => item.salary > 1000);
+            default:
+                return items;
+        }
     }
     
     onFilterSelect = (filter) => {
@@ -49,6 +60,7 @@ class App extends Component {
         const employees = this.state.data.length;
         const {data, filter} = this.state;
         const increased = this.state.data.filter(item => item.increase).length;
+        const visibleData = this.filterPost(data, filter);
 
         return (
             <div className='app'>
@@ -60,7 +72,7 @@ class App extends Component {
                 </div>
                 
                 <EmployeesList
-                        data={data}
+                        data={visibleData}
                         onDelete={this.deleteItem}
                         onToggleProp={this.onToggleProp}/>
 
