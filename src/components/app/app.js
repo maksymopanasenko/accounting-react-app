@@ -17,6 +17,7 @@ class App extends Component {
                 {name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3},
                 {name: 'Duke S.', salary: 2500, increase: false, rise: false, id: 4}
             ],
+            term: '',
             filter: 'all'
         };
         this.maxId = 5;
@@ -41,6 +42,20 @@ class App extends Component {
         }));
     }
     
+    serchEmp = (items, term) => {
+        if (term.length === 0) {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.name.indexOf(term) > -1
+        });
+    }
+
+    onUpdateSearch = (term) => {
+        this.setState({term});
+    }
+    
     filterPost = (items, filter) => {
         switch (filter) {
             case 'rise': 
@@ -58,16 +73,16 @@ class App extends Component {
     
     render() {
         const employees = this.state.data.length;
-        const {data, filter} = this.state;
+        const {data, filter, term} = this.state;
         const increased = this.state.data.filter(item => item.increase).length;
-        const visibleData = this.filterPost(data, filter);
+        const visibleData = this.filterPost(this.serchEmp(data, term), filter);
 
         return (
             <div className='app'>
                 <AppInfo employees={employees} increased={increased}/>
 
                 <div className="search-panel">
-                    <SearchPanel />
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
                     <AppFilter filter={filter} onFilterSelect={this.onFilterSelect}/>
                 </div>
                 
