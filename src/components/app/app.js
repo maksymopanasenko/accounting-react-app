@@ -13,6 +13,7 @@ class App extends Component {
         super(props);
         this.state = {
             data: [
+                {name: 'John C.', salary: 800, increase: false, rise: false, id: 1},
                 {name: 'Alex M.', salary: 3000, increase: false, rise: false, id: 2},
                 {name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3},
                 {name: 'Duke S.', salary: 2500, increase: false, rise: false, id: 4}
@@ -71,6 +72,22 @@ class App extends Component {
         this.setState({filter});
     }
     
+    addItem = (name, salary) => {
+        const newItem = {
+            name, 
+            salary,
+            increase: false,
+            rise: false,
+            id: this.maxId++
+        }
+        this.setState(({data}) => {
+            const newArr = [...data, newItem];
+            return {
+                data: newArr
+            }
+        });
+    }
+    
     render() {
         const employees = this.state.data.length;
         const {data, filter, term} = this.state;
@@ -91,7 +108,7 @@ class App extends Component {
                         onDelete={this.deleteItem}
                         onToggleProp={this.onToggleProp}/>
 
-                <EmployeesAddForm data={data}/>
+                <EmployeesAddForm  onAdd={this.addItem}/>
             </div>
         );
     }
